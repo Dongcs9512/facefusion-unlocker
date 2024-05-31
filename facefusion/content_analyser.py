@@ -24,7 +24,7 @@ MODELS : ModelSet =\
 		'path': resolve_relative_path('../.assets/models/open_nsfw.onnx')
 	}
 }
-PROBABILITY_LIMIT = 1111.11
+PROBABILITY_LIMIT = 0.80
 RATE_LIMIT = 10
 STREAM_COUNTER = 0
 
@@ -37,7 +37,7 @@ def get_content_analyser() -> Any:
 			sleep(0.5)
 		if CONTENT_ANALYSER is None:
 			model_path = MODELS.get('open_nsfw').get('path')
-			CONTENT_ANALYSER = onnxruntime.InferenceSession(model_path, providers = apply_execution_provider_options(facefusion.globals.execution_providers))
+			CONTENT_ANALYSER = onnxruntime.InferenceSession(model_path, providers = apply_execution_provider_options(facefusion.globals.execution_device_id, facefusion.globals.execution_providers))
 	return CONTENT_ANALYSER
 
 
